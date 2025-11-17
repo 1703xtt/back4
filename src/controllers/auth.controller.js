@@ -2,14 +2,14 @@ import jwt from "jsonwebtoken";
 
 export const loginController = (req, res) => {
   const { user, password } = req.body;
-
+  const numericUser = parseInt(user, 10);
   // Validar campos
   if (user == null || password == null) {
     return res.status(400).json({ error: "Usuario y contraseña son requeridos" });
   }
 
   // Usuario permitido: user numérico 1234, contraseña admin
-  if (user === 1234 && password === "admin") {
+  if (numericUser === 1234 && password === "admin") {
     const token = jwt.sign(
       { userId: user },
       process.env.JWT_SECRET || "secreto123",
